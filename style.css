@@ -1,0 +1,315 @@
+/* ============ TEMEL ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --text: #fff;
+  --card: rgba(255,255,255,0.12);
+  --card-border: rgba(255,255,255,0.2);
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  overflow: hidden;
+  user-select: none;
+}
+
+.page {
+  position: fixed;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.page.active { display: flex; }
+
+/* ============ HAVA DURUMU SAYFASI ============ */
+#weatherPage { z-index: 1; }
+
+.bg-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #2b5876 0%, #4e79a7 100%);
+  transition: background 1s ease;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px 6px;
+}
+.header h1 { font-size: 20px; font-weight: 600; }
+
+.city-btn {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px 90px;
+  overflow-y: auto;
+}
+
+.temp-block {
+  text-align: center;
+  margin: 30px 0 25px;
+}
+.weather-icon { font-size: 72px; line-height: 1; }
+.temp { font-size: 84px; font-weight: 200; letter-spacing: -3px; }
+.desc { font-size: 18px; opacity: 0.85; }
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+.detail-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+.d-icon { font-size: 22px; }
+.d-label { font-size: 12px; opacity: 0.7; display: block; }
+.d-value { font-size: 15px; font-weight: 600; }
+
+.forecast {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 18px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.forecast::-webkit-scrollbar { display: none; }
+.forecast-day {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 12px 10px;
+  min-width: 72px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+.f-day { font-size: 12px; opacity: 0.7; }
+.f-icon { font-size: 24px; margin: 6px 0; }
+.f-temp { font-size: 14px; font-weight: 600; }
+
+/* GİZLİ TETİK: sol altta küçük, zararsız güneş */
+.secret-trigger {
+  position: fixed;
+  left: 14px;
+  bottom: 18px;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  opacity: 0.55;
+  cursor: pointer;
+  padding: 8px;
+  transition: opacity 0.3s, transform 0.15s;
+}
+.secret-trigger:active { transform: scale(1.3); }
+
+/* ============ GİZLİ ROMANTİK SAYFA ============ */
+.secret-page {
+  background: linear-gradient(160deg, #1a0b2e 0%, #7b1f5a 55%, #c33e75 100%);
+  z-index: 20;
+}
+
+.hearts-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  animation: floatUp linear infinite;
+  opacity: 0.7;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.7; }
+  100% { transform: translateY(-110vh) rotate(35deg) scale(1.4); opacity: 0; }
+}
+
+.secret-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.secret-main::-webkit-scrollbar { display: none; }
+.secret-main > .secret-title { margin-top: auto; }
+.secret-main > .back-btn { margin-bottom: auto; }
+
+.secret-title {
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  animation: fadeIn 1s ease;
+}
+
+.polaroid {
+  background: #fdfbf7;
+  padding: 10px 10px 6px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  transform: rotate(-3deg);
+  margin: 16px 0 6px;
+  max-width: 250px;
+  width: 70%;
+  animation: fadeIn 1.2s ease;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+.polaroid:hover { transform: rotate(0deg) scale(1.04); }
+.polaroid img {
+  width: 100%;
+  display: block;
+  border-radius: 3px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+.polaroid-caption {
+  font-family: "Segoe Script", "Comic Sans MS", cursive;
+  color: #5a4a42;
+  text-align: center;
+  font-size: 15px;
+  padding: 8px 0 4px;
+}
+.polaroid-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 90px;
+  height: 26px;
+  background: rgba(255, 235, 180, 0.65);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border-radius: 2px;
+}
+
+.secret-quote {
+  margin: 20px 0 30px;
+  font-size: 16px;
+  font-style: italic;
+  opacity: 0.9;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.heart-container { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.big-heart {
+  background: transparent;
+  border: none;
+  font-size: 90px;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(.34,1.56,.64,1);
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+.big-heart:active { transform: scale(1.35); }
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  12% { transform: scale(1.12); }
+  24% { transform: scale(1); }
+}
+
+.tap-hint { font-size: 13px; opacity: 0.6; }
+.counter { margin-top: 16px; font-size: 14px; opacity: 0.8; min-height: 20px; }
+
+/* Kalp patlaması */
+.burst-heart {
+  position: fixed;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 30;
+  animation: burst 1s ease forwards;
+}
+@keyframes burst {
+  0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.6); opacity: 0; }
+}
+
+.back-btn {
+  margin-top: 30px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 15px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.back-btn small { font-size: 10px; opacity: 0.7; display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ DİYALOG ============ */
+dialog {
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+  background: #2b3a55;
+  color: #fff;
+  width: min(85vw, 340px);
+}
+dialog::backdrop { background: rgba(0,0,0,0.5); }
+dialog label { font-size: 14px; display: block; margin-bottom: 8px; }
+dialog input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+.dialog-buttons { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+.btn-primary, .btn-secondary {
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-primary { background: #4e79a7; color: #fff; }
+.btn-secondary { background: rgba(255,255,255,0.12); color: #fff; }
